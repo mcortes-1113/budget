@@ -4,7 +4,8 @@ const priceEl = document.getElementById("price");
 const balanceEl = document.getElementById("balance");
 const expenseEl = document.getElementById("expense");
 const expensesListEl = document.getElementById("expenses-list");
-const submitBtn = document.getElementById("submit");
+const expenseBtn = document.getElementById("expenseBtn");
+const depositBtn = document.getElementById("depositBtn");
 const resetBtn = document.getElementById("reset");
 
 function addToList(name, price) {
@@ -12,10 +13,18 @@ function addToList(name, price) {
     <span class="ml-4">Price: ${price}</span></li>`;
 }
 
-function submit(e) {
+function expense(e) {
   e.preventDefault();
-  console.log("button is working");
+  console.log("expense button is working");
   const total = calculations.subtract(Number(balanceEl.innerText), priceEl.value);
+  balanceEl.innerText = total;
+  addToList(expenseEl.value, priceEl.value);
+}
+
+function deposit(e) {
+  e.preventDefault();
+  console.log("deposit button is working");
+  const total = calculations.add(Number(balanceEl.innerText), priceEl.value);
   balanceEl.innerText = total;
   addToList(expenseEl.value, priceEl.value);
 }
@@ -27,5 +36,6 @@ function reset(e) {
   expensesListEl.innerHTML = "";
 }
 
-submitBtn.onclick = submit;
+expenseBtn.onclick = expense;
+depositBtn.onclick = deposit;
 resetBtn.onclick = reset;
