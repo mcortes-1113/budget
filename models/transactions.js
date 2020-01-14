@@ -6,6 +6,7 @@ const transactionsSchema = new Schema(
   {
     item: { type: String, required: true },
     amount: { type: Number, required: true },
+    newBalance: {type: Number, required: true},
     date: { type: Date, default: Date.now },
   }
 );
