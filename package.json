@@ -19,10 +19,11 @@
   },
   "homepage": "https://github.com/coding-boot-camp/unit18hw#readme",
   "dependencies": {
+    "axios": "^0.19.1",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "lite-server": "^2.5.3",
-    "mongoose": "^5.5.15",
+    "mongoose": "^5.8.7",
     "morgan": "^1.9.1"
   }
 }
