@@ -2,7 +2,10 @@ const FILES_TO_CACHE = [
     "/",
     "index.html",
     "assets/js/app.js",
-    "assets/js/indexedDB.js"
+    "/assets/css/bootstrap.min.css",
+	  "/assets/js/jquery-3.4.1.min.js",
+	  "/assets/js/tether.min.js",
+	  "/assets/js/bootstrap.min.js"
   ];
   
   const CACHE_NAME = "static-cache-v2";
