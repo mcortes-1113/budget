@@ -2,7 +2,6 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const compression = require("compression");
-const path = require("path");
 
 const PORT = 5000;
 
@@ -16,17 +15,13 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/budget", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
   useFindAndModify: false
-});
+})
 
-// routes here
-
-app.get("/", function (req, res) {
-    console.log("home route");
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-});
+require("./routes/apiroutes.js")(app);
+app.use(require("./routes/htmlroutes.js"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
