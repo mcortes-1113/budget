@@ -1,13 +1,13 @@
- var Transactions = require("../models/Transactions");
+var Transactions = require("../models/transactions");
 
-module.exports = function(app) {
-  app.get("/api/Transactions", function(req, res) {
-    Transactions.find({}).then(function(data) {
+module.exports = function (app) {
+  app.get("/api/transactions", function (req, res) {
+    Transactions.find({}).then(function (data) {
       res.send(data);
     });
   });
 
-  app.post("/api/Transactions", (req, res) => {
+  app.post("/api/transactions", (req, res) => {
     Transactions.create(req.body)
       .then(db => {
         res.json(db);
@@ -16,10 +16,4 @@ module.exports = function(app) {
         res.json(err);
       });
   });
-
-  app.delete("/api/Transactions", function(req, res) {
-    Transactions.deleteMany().then(
-    );
-  });
-
 };
