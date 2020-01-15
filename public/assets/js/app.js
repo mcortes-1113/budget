@@ -9,6 +9,7 @@ const expensesListEl = document.getElementById("expenses-list");
 const expenseBtn = document.getElementById("expenseBtn");
 const depositBtn = document.getElementById("depositBtn");
 const resetBtn = document.getElementById("resetBtn");
+// let bal = "";
 
 //=====This line needs to be added to package.json scripts for deployment "heroku-postbuild": "webpack -p"
 
@@ -20,14 +21,27 @@ function addition(a, b) {
   return a + b;
 }
 
-function addExpenseToList(name, price) {
-  expensesListEl.innerHTML += `<li class="list-group-item">Expense Description: ${name}
-    <span class="ml-4">Amount: $ ${price}</span></li>`;
+function addExpenseToList(type, name, price) {
+  expensesListEl.innerHTML = `<li class="list-group-item">${type} Description: ${name}
+    <span class="ml-4">Amount: $ - ${price}</span></li>` + expensesListEl.innerHTML;
 }
 
-function addDepositToList(name, price) {
-  expensesListEl.innerHTML += `<li class="list-group-item">Deposit Description: ${name}
-    <span class="ml-4">Amount: $ ${price}</span></li>`;
+function addDepositToList(type, name, price) {
+  expensesListEl.innerHTML = `<li class="list-group-item">${type} Description: ${name}
+    <span class="ml-4">Amount: $ ${price}</span></li>` + expensesListEl.innerHTML;
+}
+
+function showTransactions(type, name, price) {
+  expensesListEl.innerHTML = `<li class="list-group-item">Transaction Description: ${name}
+    <span class="ml-4">Amount: $ ${price}</span></li>` + expensesListEl.innerHTML;
+}
+
+function getAllTransactions() {
+  // balanceEl.innerText = bal;
+  $.ajax({ url: "api/transactions" })
+    .done(function(response) {
+      response.forEach(item => showTransactions(item.transactionType, item.item, item.amount));
+    });
 }
 
 function expense(e) {
@@ -35,11 +49,13 @@ function expense(e) {
   const currentBal = Number(balanceEl.innerText);
   const entryAmt = Number(amountEl.value);
   const balanceAfterExpense = subtract(currentBal, entryAmt);
+  // bal = balanceAfterExpense;
   const item = itemEl.value
+  const type = "Expense";
 
   balanceEl.innerText = balanceAfterExpense;
-  addExpenseToList(item, entryAmt);
-  data = { item: item, amount: entryAmt, newBalance: balanceAfterExpense };
+  addExpenseToList(type, item, entryAmt);
+  data = { transactionType: type, item: item, amount: entryAmt, newBalance: balanceAfterExpense };
   $.ajax({ url: "api/transactions", type: "POST", data })
     .done(function (response) {
       console.log(response);
@@ -94,11 +110,13 @@ function deposit(d) {
   const currentBal = Number(balanceEl.innerText);
   const entryAmt = Number(amountEl.value);
   const balanceAfterDeposit = addition(currentBal, entryAmt);
+  // bal = balanceAfterDeposit;
   const item = itemEl.value
+  const type = "Deposit";
 
   balanceEl.innerText = balanceAfterDeposit;
-  addDepositToList(item, entryAmt);
-  data = { item: item, amount: entryAmt, newBalance: balanceAfterDeposit };
+  addDepositToList(type, item, entryAmt);
+  data = { transactionType: type, item: item, amount: entryAmt, newBalance: balanceAfterDeposit };
   $.ajax({ url: "api/transactions", type: "POST", data })
     .done(function (response) {
       console.log(response);
@@ -158,3 +176,5 @@ function reset(e) {
 expenseBtn.onclick = expense;
 depositBtn.onclick = deposit;
 resetBtn.onclick = reset;
+
+getAllTransactions();
