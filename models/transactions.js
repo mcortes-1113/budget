@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const transactionsSchema = new Schema(
   {
+    transactionType: { type: String, required: true },
     item: { type: String, required: true },
     amount: { type: Number, required: true },
     newBalance: {type: Number, required: true},
