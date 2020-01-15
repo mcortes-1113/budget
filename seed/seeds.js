@@ -8,10 +8,12 @@ mongoose.connect((process.env.MONGODB_URI || "mongodb://localhost/budget"), {
 
 const budgetEntry = [
     {
+      transactionType: "Expense",
       item: "testExpense",
-      amount: -10,
+      amount: -200,
     },
     {
+      transactionType: "Deposit",
       item: "testDeposit",
       amount: 200,
     }
