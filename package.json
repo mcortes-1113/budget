@@ -22,7 +22,7 @@
     "axios": "^0.19.1",
     "compression": "^1.7.4",
     "express": "^4.17.1",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "lite-server": "^2.5.3",
     "mongoose": "^5.8.7",
     "morgan": "^1.9.1"
